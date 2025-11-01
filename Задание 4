@@ -1,0 +1,95 @@
+using System;
+
+public class Player
+{
+    private int level;
+    private int health;
+
+    public string Name { get; init; }
+
+    public int Level
+    {
+        get { return level; }
+        init
+        {
+            if (value >= 1 && value <= 100)
+            {
+                level = value;
+            }
+            else
+            {
+                level = 1;
+                Console.WriteLine($"Уровень должен быть от 1 до 100! Установлено значение: {level}.");
+            }
+        }
+    }
+
+    public int Health
+    {
+        get { return health; }
+        init
+        {
+            if (value >= 0 && value <= 100)
+            {
+                health = value;
+            }
+            else if (value > 100)
+            {
+                health = 100;
+                Console.WriteLine($"Здоровье не может превышать 100! Установлено значение: {health}.");
+            }
+            else
+            {
+                health = 0;
+                Console.WriteLine($"Здоровье не может быть ниже 0! Установлено значение: {health}.");
+            }
+        }
+    }
+
+    public bool IsAlive
+    {
+        get { return health > 0; }
+    }
+
+    public Player(string name, int level, int health)
+    {
+        this.Name = name;
+        this.Level = level;
+        this.Health = health;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        if (damage < 0)
+        {
+            Console.WriteLine("Урон не может быть отрицательным!");
+            return;
+        }
+
+        this.health -= damage;
+        if (this.health < 0)
+        {
+            this.health = 0;
+        }
+
+        DisplayStatus();
+    }
+
+    public void DisplayStatus()
+    {
+        Console.WriteLine($"Игрок: {Name}, уровень: {Level}, здоровье: {Health}, жив: {(IsAlive ? "да" : "нет")}");
+    }
+}
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        Player alex = new Player("Alex", 5, 70);
+        alex.DisplayStatus();
+
+        alex.TakeDamage(30);
+        alex.TakeDamage(40);
+        alex.TakeDamage(10);
+    }
+}
