@@ -1,0 +1,60 @@
+﻿using System;
+using System.Globalization;
+
+public class Phone
+{
+    private int battery;
+
+    public string Brand { get; }
+
+    public int BatteryLevel
+    {
+        get { return battery; }
+        set
+        {
+            if (value >= 0 && value <= 100)
+            {
+                battery = value;
+            }
+            else if (value > 100)
+            {
+                battery = 100;
+                Console.WriteLine($"Заряд не может превышать 100!");
+            }
+            else
+            {
+                battery = 0;
+                Console.WriteLine($"Заряд не может быть ниже 0!");
+            }
+        }
+    }
+
+    public Phone(string brand, int initialCharge)
+    {
+        this.Brand = brand;
+        this.BatteryLevel = initialCharge;
+    }
+
+    public void Use()
+    {
+        this.BatteryLevel -= 10;
+        CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US");
+        Console.WriteLine($"{Brand}: заряд {BatteryLevel.ToString(culture)}%.");
+    }
+}
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        Phone myPhone = new Phone("Iphone", 100);
+
+        myPhone.Use();
+        myPhone.Use();
+        myPhone.Use();
+
+        Phone anotherPhone = new Phone("TestBrand", 50);
+        anotherPhone.BatteryLevel = 150;
+        Console.WriteLine($"Заряд другого телефона после попытки: {anotherPhone.BatteryLevel}%");
+    }
+}
