@@ -91,5 +91,8 @@ public class Program
         alex.TakeDamage(30);
         alex.TakeDamage(40);
         alex.TakeDamage(10);
+
+       Console.ReadLine();
     }
 }
+
