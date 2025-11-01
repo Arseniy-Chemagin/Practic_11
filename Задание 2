@@ -56,5 +56,8 @@ public class Program
         Phone anotherPhone = new Phone("TestBrand", 50);
         anotherPhone.BatteryLevel = 150;
         Console.WriteLine($"Заряд другого телефона после попытки: {anotherPhone.BatteryLevel}%");
+
+        Console.ReadLine();
     }
 }
+
